@@ -81,7 +81,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::MoveForward(float AxisValue)
 {
-    if (Controller != nullptr)
+    if (Controller != nullptr && CurrentHealth > 0)
     {
         if (AxisValue != 0.0f)
         {
@@ -99,7 +99,7 @@ void APlayerCharacter::MoveForward(float AxisValue)
 
 void APlayerCharacter::MoveRight(float AxisValue)
 {
-    if (Controller != nullptr)
+    if (Controller != nullptr && CurrentHealth > 0)
     {
         if (AxisValue != 0.0f)
         {
@@ -125,7 +125,7 @@ void APlayerCharacter::Turn(float InputAxis)
 
 void APlayerCharacter::Look_up(float InputAxis)
 {
-    if (Controller != nullptr)
+    if (Controller != nullptr && CurrentHealth > 0)
     {
         APlayerCameraManager* CameraManager = UGameplayStatics::GetPlayerCameraManager(this, 0);
         FRotator cam_dir = CameraManager->GetCameraRotation();
