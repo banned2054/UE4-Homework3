@@ -74,11 +74,28 @@ void AThirdPersonMPProjectile::Destroyed()
 }
 
 void AThirdPersonMPProjectile::OnProjectileImpact(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
-{
+{	
 	if (OtherActor)
 	{
+		if (OtherActor != GetOwner())
 		UGameplayStatics::ApplyPointDamage(OtherActor, Damage, NormalImpulse, Hit, GetInstigator()->Controller, this, DamageType);
 	}
 
 	Destroy();
+}
+
+bool  AThirdPersonMPProjectile::is_friend(AActor* A, AActor* B)
+{
+	if (A == nullptr || B == nullptr)
+	{
+		return true;
+	}
+	UHealthComponent* health_A = Cast<UHealthComponent>(A->GetComponentByClass(UHealthComponent::StaticClass()));
+	UHealthComponent* health_B = Cast<UHealthComponent>(B->GetComponentByClass(UHealthComponent::StaticClass()));
+
+	if (health_A == nullptr || health_B == nullptr)
+	{
+		return true;
+	}
+	return health_A->team_numb == health_B->team_numb;
 }

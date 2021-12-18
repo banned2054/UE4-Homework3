@@ -11,6 +11,9 @@
 #include "Particles/ParticleSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
+#include "HealthComponent.h"
+#include "Net/UnrealNetwork.h"
+#include "Engine/Engine.h"
 #include "ThirdPersonMPProjectile.generated.h"
 
 UCLASS()
@@ -21,6 +24,9 @@ class MULTPLAYER_API AThirdPersonMPProjectile : public AActor
 public:
 	// Sets default values for this actor's properties
 	AThirdPersonMPProjectile();
+
+	UPROPERTY(BlueprintReadOnly, Category = "Componenets")
+		UHealthComponent* my_health;
 
 	// 用于测试碰撞的球体组件。
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
@@ -57,5 +63,8 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+		static bool is_friend(AActor* A, AActor* B);
 
 };

@@ -42,8 +42,9 @@ APlayerCharacter::APlayerCharacter()
     //初始化玩家生命值
     MaxHealth = 100.0f;
     CurrentHealth = MaxHealth;
+    team_numb = 1;
 
-    muzzle_socket = FName("Muzzle");    
+    muzzle_socket = FName("Muzzle");
 }
 
 // Called when the game starts or when spawned
@@ -207,7 +208,7 @@ void APlayerCharacter::OnHealthUpdate()
     if (GetLocalRole() == ROLE_Authority)
     {
         FString healthMessage = FString::Printf(TEXT("%s now has %f health remaining."), *GetFName().ToString(), CurrentHealth);
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, healthMessage);
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, healthMessage);
     }
 
     //在所有机器上都执行的函数。 

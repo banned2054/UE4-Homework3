@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Net/UnrealNetwork.h"
+#include "Engine/Engine.h"
 #include "HealthComponent.generated.h"
 
 
@@ -14,9 +16,14 @@ class MULTPLAYER_API UHealthComponent : public UActorComponent
 
 public:
 	UHealthComponent();
+	/**  Ù–‘∏¥÷∆ */
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	UPROPERTY(EditDefaultsOnly,Replicated,  BlueprintReadOnly, Category = "HealthComponent")
+		int team_numb;
 protected:
 	virtual void BeginPlay() override;
+	
 	
 public:
 	

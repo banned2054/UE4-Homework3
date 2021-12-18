@@ -8,6 +8,7 @@
 #include "Net/UnrealNetwork.h"
 #include "Engine/Engine.h"
 #include "Weapon.h"
+#include "HealthComponent.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -24,6 +25,10 @@ public:
 	//玩家跟随摄像机
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		class UCameraComponent* CameraComp;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	int team_numb;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -111,7 +116,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	/** 最大生命值的取值函数。*/
-	UFUNCTION(BlueprintCallable,Category = "Health", BlueprintCallable)
+	UFUNCTION(BlueprintCallable,Category = "Health")
 		FORCEINLINE float GetMaxHealth() const { return MaxHealth; }
 
 	/** 当前生命值的取值函数。*/
@@ -128,4 +133,5 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 		AActor* Get_Weapon();
+	
 };
